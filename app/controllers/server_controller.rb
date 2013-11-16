@@ -1,5 +1,5 @@
 class ServerController < ApplicationController
   def test
-    render json: User.all
+    render json: params
   end
 end
