@@ -8,4 +8,7 @@ class Book < ActiveRecord::Base
 
   has_many :book_lists
   has_many :grades, through: :book_lists
+
+  has_many :inventories
+  has_many :bookshops , through: :inventories
 end
