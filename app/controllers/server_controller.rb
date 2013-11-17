@@ -1,5 +1,6 @@
 class ServerController < ApplicationController
   def test
-    render json: params
+    render  json: Credential.last
+
   end
 end
