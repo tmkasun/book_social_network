@@ -9,12 +9,14 @@ class UsersController < ApplicationController
 
     puts "username = #{username}, password = #{password}" # debug info
     
+    server_response = {credential_id: -1}
     authenticate_user = Credential.find_by_username(username)
     if authenticate_user.blank? or not (authenticate_user.password.eql? password) 
-      render json: -1
+      render json: server_response
       return false
     end 
-    render json: authenticate_user.id
+    server_response[:credential_id] = authenticate_user.id
+    render json: server_response
   end
 
   def view
