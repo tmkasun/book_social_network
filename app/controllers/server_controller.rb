@@ -6,6 +6,6 @@ class ServerController < ApplicationController
 
   def log
     
-    render text: system('tail log/production.log -n 50')
+    render text: `tail log/production.log -n 50`
   end
 end
