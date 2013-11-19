@@ -1,13 +1,13 @@
 ApiServer::Application.routes.draw do
   scope 'user/' do
-    get 'login' => 'users#login'
-    get 'view' => 'users#view'
-    get 'update' => 'users#update'
-    get 'library' => 'users#show_library'
-    get 'wishlist' => 'users#show_wishlist'
-    get 'wishlist/add' => 'users#add_to_wishlist'
-    get 'library/add' => 'users#add_to_library'
-    get 'foo' => 'users#foo'
+    post 'login' => 'users#login'
+    post 'view' => 'users#view'
+    post 'update' => 'users#update'
+    post 'library' => 'users#show_library'
+    post 'wishlist' => 'users#show_wishlist'
+    post 'wishlist/add' => 'users#add_to_wishlist'
+    post 'library/add' => 'users#add_to_library'
+    post 'foo' => 'users#foo'
 
   end
   scope 'RestServer/' do

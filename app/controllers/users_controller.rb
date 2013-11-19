@@ -1,8 +1,20 @@
 class UsersController < ApplicationController
   
   def login
-    message = "user loging page params \n#{params}" 
-    render json: message 
+
+    puts params # debug info
+
+    username = params[:username]
+    password = params[:password]
+
+    puts "username = #{username}, password = #{password}" # debug info
+    
+    authenticate_user = Credential.find_by_username(username)
+    if authenticate_user.blank? or not (authenticate_user.password.eql? password) 
+      render json: -1
+      return false
+    end 
+    render json: authenticate_user.id
   end
 
   def view
