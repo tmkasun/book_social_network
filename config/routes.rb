@@ -1,5 +1,6 @@
 ApiServer::Application.routes.draw do
   scope 'user/' do
+    get 'login' => 'users#login'
     get 'view' => 'users#view'
     get 'update' => 'users#update'
     get 'library' => 'users#show_library'
