@@ -1,4 +1,14 @@
 ApiServer::Application.routes.draw do
+  scope 'user/' do
+    get 'view' => 'users#view'
+    get 'update' => 'users#update'
+    get 'library' => 'users#show_library'
+    get 'wishlist' => 'users#show_wishlist'
+    get 'wishlist/add' => 'users#add_to_wishlist'
+    get 'library/add' => 'users#add_to_library'
+    get 'foo' => 'users#foo'
+
+  end
   scope 'RestServer/' do
    scope ':method/' do
     get ':username/:password' => 'server#test'
