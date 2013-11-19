@@ -10,14 +10,15 @@ ApiServer::Application.routes.draw do
     post 'foo' => 'users#foo'
 
   end
+
   scope 'RestServer/' do
    scope ':method/' do
     get ':username/:password' => 'server#test'
     
     end 
-
+  
   end
-
+  get 'server/log' => 'server#log'
   root 'server#test'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
