@@ -53,5 +53,11 @@ class UsersController < ApplicationController
     message = "user foo page params \n#{params}"
     render json: message
   end
-
+  
+  def signup
+    
+    puts params
+    render json: "This is user signup page client params = #{params}"
+   
+  end
 end

@@ -8,7 +8,15 @@ ApiServer::Application.routes.draw do
     post 'wishlist/add' => 'users#add_to_wishlist'
     post 'library/add' => 'users#add_to_library'
     post 'foo' => 'users#foo'
+    post 'signup' => 'users#signup'
+  end
+  scope 'school/' do
+    post 'signup' => 'schools#signup'
 
+  end
+  scope 'bookshop/' do
+    
+    post 'signup' => 'bookshops#signup'
   end
 
   scope 'RestServer/' do

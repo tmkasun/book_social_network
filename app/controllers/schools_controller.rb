@@ -10,5 +10,10 @@ class SchoolsController < ApplicationController
     message = "School update page params \n#{params}"
     render json: message
   end
+  
+  def signup 
 
+    message = "School signup page params \n#{params}"
+    render json: message
+  end
 end

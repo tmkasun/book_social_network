@@ -10,4 +10,10 @@ class BookshopsController < ApplicationController
     render json: message
   end
 
+  def signup
+
+    message = "Bookshops signup page params \n#{params}"
+    render json: message
+  end
+
 end
