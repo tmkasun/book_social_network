@@ -55,9 +55,31 @@ class UsersController < ApplicationController
   end
   
   def signup
+    username = params[:username]
+    first_name = params[:firstname]
+    last_name = params[:secondname]
+    password = params[:password]
+    location = params[:location]
+    date_of_birth = params[:dob]
+    gender = params[:gender]
+    server_response = {credential_id: -1}
+    puts params    
+    if Credential.find_by_username username or password.length <2 #check weather the given username is already excist    
+      render json: server_response 
+      return false
+    end
     
-    puts params
-    render json: "This is user signup page client params = #{params}"
-   
+    new_user = User.create(first_name: first_name, last_name: last_name, location: location, date_of_birth: date_of_birth, gender: gender)
+    new_user_credential = new_user.create_credential(username: username, password: password)
+    
+    if new_user_credential.id.blank?
+      new_user.destroy!
+      render json: server_response 
+      return false
+    end    
+    server_response["credential_id"] = new_user_credential.id
+    render json: server_response
+
   end
+
 end
