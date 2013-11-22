@@ -30,8 +30,30 @@ class UsersController < ApplicationController
   end
 
   def update
-    message = "user update page params \n#{params}"
-    render json: message
+    credential_id = params[:credential_id]
+    server_response = {credential_id: -1}
+    
+    update_user_credential = Credential.find(credential_id)
+    update_user = update_user_credential.login
+    
+    puts "aaaaaaaaaaaaaaaaaaaaaaaaaa\n\n\n"
+    render json: server_response and return false if Credential.find_by_username(params[:username])
+    puts "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk \n\n\n"
+   
+    params[:username].blank? ? (username = update_user_credential["username"]) : (username = params[:username])
+    params[:password].blank? ? (password = update_user_credential["password"]) : (password = params[:password])
+    
+    params[:firstname].blank? ? (first_name = update_user["first_name"]) : (first_name = params[:firstname])
+    params[:secondname].blank? ? (last_name = update_user["last_name"]) : (last_name = params[:secondname])
+    params[:location].blank? ? (location = update_user["location"]) : (location = params[:location])
+    params[:dob].blank? ? (date_of_birth = update_user["date_of_birth"]) : (date_of_birth = params[:dob])
+    params[:gender].blank? ? (gender = update_user["gender"]) : (gender = params[:gender])
+    
+    update_user_credential.update_attributes(username: username, password: password)
+    update_user.update_attributes(first_name: first_name, last_name: last_name ,location: location ,date_of_birth: date_of_birth ,gender: gender)
+    
+    server_response[:credential_id] = update_user_credential.id 
+    render json: server_response
   end
 
   def show_library

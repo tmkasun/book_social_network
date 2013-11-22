@@ -15,8 +15,25 @@ class SchoolsController < ApplicationController
 
 
   def update
-    message = "School update page params \n#{params}"
-    render json: message
+    credential_id = params[:credential_id]
+    server_response = {credential_id: -1}
+    
+    update_school_credential = Credential.find(credential_id)
+    update_school = update_school_credential.login
+    
+    render json: server_response and return false if Credential.find_by_username(params[:username])
+   
+    params[:username].blank? ? (username = update_school_credential["username"]) : (username = params[:username])
+    params[:password].blank? ? (password = update_school_credential["password"]) : (password = params[:password])
+    
+    params[:name].blank? ? (name = update_school["name"]) : (name = params[:name])
+    params[:location].blank? ? (location = update_school["location"]) : (location = params[:location])
+    
+    update_school_credential.update_attributes(username: username, password: password)
+    update_school.update_attributes(name: name,location: location)
+    
+    server_response[:credential_id] = update_school_credential.id 
+    render json: server_response
   end
   
   def signup 
