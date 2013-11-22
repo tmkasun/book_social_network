@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     end 
     server_response[:credential_id] = authenticate_user.id
     #experimental shortcut expression
-    authenticate_user.login_type.eql? "User" ? server_response["user_type"] = "Basic #{authenticate_user.login_type}" : server_response["user_type"] = authenticate_user.login_type
+    authenticate_user.login_type.eql?("User") ? server_response["user_type"] = "Basic #{authenticate_user.login_type}" : server_response["user_type"] = authenticate_user.login_type
     render json: server_response
   
   end
