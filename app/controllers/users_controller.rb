@@ -2,13 +2,8 @@ class UsersController < ApplicationController
   
   def login
 
-    puts params # debug info
-
     username = params[:username]
     password = params[:password]
-
-    puts "username = #{username}, password = #{password}" # debug info
-    
     server_response = {credential_id: -1}
     authenticate_user = Credential.find_by_username(username)
     if authenticate_user.blank? or not (authenticate_user.password.eql? password) 
@@ -16,12 +11,22 @@ class UsersController < ApplicationController
       return false
     end 
     server_response[:credential_id] = authenticate_user.id
+    #experimental shortcut expression
+    authenticate_user.login_type.eql? "User" ? server_response["user_type"] = "Basic #{authenticate_user.login_type}" : server_response["user_type"] = authenticate_user.login_type
     render json: server_response
+  
   end
 
   def view
-    message = "user view page params \n#{params}" 
-    render json: message 
+
+    credential_id = params[:credential_id]
+    begin
+      user = Credential.find(credential_id).login
+      server_response  = user
+    rescue ActiveRecord::RecordNotFound => error
+      server_response = {credential_id: -1}
+    end
+    render json: server_response       
   end
 
   def update

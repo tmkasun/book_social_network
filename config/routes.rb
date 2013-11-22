@@ -10,12 +10,15 @@ ApiServer::Application.routes.draw do
     post 'foo' => 'users#foo'
     post 'signup' => 'users#signup'
   end
+  
   scope 'school/' do
     post 'signup' => 'schools#signup'
-
-  end
-  scope 'bookshop/' do
+    post 'view' => 'schools#view'
     
+  end
+  
+  scope 'bookshop/' do
+    post 'view' => 'bookshops#view'
     post 'signup' => 'bookshops#signup'
   end
 

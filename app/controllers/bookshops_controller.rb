@@ -1,8 +1,16 @@
 class BookshopsController < ApplicationController
 
   def view
-    message = "Bookshop view page params \n#{params}"
-    render json: message
+
+    credential_id = params[:credential_id]
+    begin
+      bookshop = Credential.find(credential_id).login
+      server_response  = bookshop
+    rescue ActiveRecord::RecordNotFound => error
+      server_response = {credential_id: -1}
+    end
+    render json: server_response       
+
   end
 
   def update
