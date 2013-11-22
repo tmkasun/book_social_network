@@ -14,12 +14,13 @@ ApiServer::Application.routes.draw do
   scope 'school/' do
     post 'signup' => 'schools#signup'
     post 'view' => 'schools#view'
-    
+    post 'update' => 'schools#update'    
   end
   
   scope 'bookshop/' do
     post 'view' => 'bookshops#view'
     post 'signup' => 'bookshops#signup'
+    post 'update' => 'bookshops#update'
   end
 
   scope 'RestServer/' do

@@ -43,14 +43,14 @@ class UsersController < ApplicationController
     params[:username].blank? ? (username = update_user_credential["username"]) : (username = params[:username])
     params[:password].blank? ? (password = update_user_credential["password"]) : (password = params[:password])
     
-    params[:firstname].blank? ? (first_name = update_user["first_name"]) : (first_name = params[:firstname])
-    params[:secondname].blank? ? (last_name = update_user["last_name"]) : (last_name = params[:secondname])
+    params[:firstname].blank? ? (firstname = update_user["firstname"]) : (firstname = params[:firstname])
+    params[:secondname].blank? ? (secondname = update_user["secondname"]) : (secondname = params[:secondname])
     params[:location].blank? ? (location = update_user["location"]) : (location = params[:location])
-    params[:dob].blank? ? (date_of_birth = update_user["date_of_birth"]) : (date_of_birth = params[:dob])
+    params[:dob].blank? ? (dob = update_user["dob"]) : (dob = params[:dob])
     params[:gender].blank? ? (gender = update_user["gender"]) : (gender = params[:gender])
     
     update_user_credential.update_attributes(username: username, password: password)
-    update_user.update_attributes(first_name: first_name, last_name: last_name ,location: location ,date_of_birth: date_of_birth ,gender: gender)
+    update_user.update_attributes(firstname: firstname, secondname: secondname ,location: location ,dob: dob ,gender: gender)
     
     server_response[:credential_id] = update_user_credential.id 
     render json: server_response
@@ -83,11 +83,11 @@ class UsersController < ApplicationController
   
   def signup
     username = params[:username]
-    first_name = params[:firstname]
-    last_name = params[:secondname]
+    firstname = params[:firstname]
+    secondname = params[:secondname]
     password = params[:password]
     location = params[:location]
-    date_of_birth = params[:dob]
+    dob = params[:dob]
     gender = params[:gender]
     server_response = {credential_id: -1}
     puts params    
@@ -96,7 +96,7 @@ class UsersController < ApplicationController
       return false
     end
     
-    new_user = User.create(first_name: first_name, last_name: last_name, location: location, date_of_birth: date_of_birth, gender: gender)
+    new_user = User.create(firstname: firstname, secondname: secondname, location: location, dob: dob, gender: gender)
     new_user_credential = new_user.create_credential(username: username, password: password)
     
     if new_user_credential.id.blank?
