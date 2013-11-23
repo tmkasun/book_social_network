@@ -1,4 +1,7 @@
 class Book < ActiveRecord::Base
+  
+  validates :isbn, uniqueness: true
+  
   has_many :interests
   has_many :users, through: :interests
 

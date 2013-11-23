@@ -58,23 +58,61 @@ class UsersController < ApplicationController
 
   def show_library
     credential_id = params[:credential_id]
+    library_user = Credential.find(credential_id).login
+    user_interests = library_user.interests.where(read: true)
+    library_book = {}
+    server_response = {library: []}    
+    user_interests.each do |interest|
+      library_book["title"] = interest.book.title
+      library_book["author"] = interest.book.author
+      library_book["rating"] = interest.rating
+      library_book["category"] = interest.category
+      library_book["isbn"] = interest.isbn
+      server_response[:library].push(library_book)
+    end
     
-    
+    render json: server_response    
   end
 
   def show_wishlist
-    message = "user show_wishlist page params \n#{params}"
-    render json: message
+    credential_id = params[:credential_id]
+    wishlist_user = Credential.find(credential_id).login
+    user_interests = library_user.interests.where(read: false)
+    wishlist_book = {}
+    server_response = {wishlist: []}    
+    user_interests.each do |interest|
+      wishlist_book["title"] = interest.book.title
+      wishlist_book["author"] = interest.book.author
+      server_response[:wishlist].push(wishlist_book)
+    end
+    
+    render json: server_response
   end
 
   def add_to_wishlist
-    message = "user add_to_wishlist page params \n#{params}"
-    render json: message
-  end
-
+    title = params["title"]
+    author = params["author"]
+    
+    credential_id = params["credential_id"]
+    
+    user = Credential.find(credential_id).login
+    new_book = Book.create(title: title, author: author)
+    user.books << new_book 
   def add_to_library
-    message = "user add_to_library page params \n#{params}"
-    render json: message
+    title = params["title"]
+    isbn = params["isbn"]
+    author = params["author"]
+    
+    category = params["category"]
+    rating = params["rating"]
+    
+    credential_id = params["credential_id"]
+    
+    user = Credential.find(credential_id).login
+    new_book = Book.create(title: title, isbn: isbn, author: author)
+    user.interests.create(book_id: new_book.id, category: category, rating: rating, read: true) if new_book.valid?
+    existing_book = Book.find_by_isbn(isbn)
+    user.interests.create(book_id: existing_book.id, category: category, rating: rating ,read: true)
   end
 
   def foo
