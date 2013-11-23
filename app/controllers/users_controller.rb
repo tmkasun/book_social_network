@@ -57,8 +57,9 @@ class UsersController < ApplicationController
   end
 
   def show_library
-    message = "user show_library page params \n#{params}"
-    render json: message
+    credential_id = params[:credential_id]
+    
+    
   end
 
   def show_wishlist
