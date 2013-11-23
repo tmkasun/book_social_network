@@ -98,6 +98,8 @@ class UsersController < ApplicationController
     user = Credential.find(credential_id).login
     new_book = Book.create(title: title, author: author)
     user.books << new_book 
+  end
+  
   def add_to_library
     title = params["title"]
     isbn = params["isbn"]
