@@ -83,6 +83,7 @@ class UsersController < ApplicationController
     user_interests.each do |interest|
       wishlist_book["title"] = interest.book.title
       wishlist_book["author"] = interest.book.author
+      wishlist_book["interest_id"] = interest.id
       server_response[:wishlist].push(wishlist_book)
     end
     
