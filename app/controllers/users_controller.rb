@@ -67,7 +67,7 @@ class UsersController < ApplicationController
       library_book["author"] = interest.book.author
       library_book["rating"] = interest.rating
       library_book["category"] = interest.category
-      library_book["isbn"] = interest.isbn
+      library_book["isbn"] = interest.book.isbn
       server_response[:library].push(library_book)
     end
     
