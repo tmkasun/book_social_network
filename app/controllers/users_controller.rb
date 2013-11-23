@@ -61,7 +61,7 @@ class UsersController < ApplicationController
     library_user = Credential.find(credential_id).login
     user_interests = library_user.interests.where(read: true)
     
-    server_response = []    
+    server_response = {library: []}
     user_interests.each do |interest|
       library_book = {}
       library_book["title"] = interest.book.title
@@ -69,7 +69,7 @@ class UsersController < ApplicationController
       library_book["rating"] = interest.rating
       library_book["category"] = interest.category
       library_book["isbn"] = interest.book.isbn
-      server_response.push(library_book)
+      server_response[:library].push(library_book)
     end
     
     render json: server_response    
@@ -80,14 +80,14 @@ class UsersController < ApplicationController
     wishlist_user = Credential.find(credential_id).login
     user_interests = wishlist_user.interests.where(read: false)
     
-    server_response =[]    
+    server_response = {wishlist: []}
     user_interests.each do |interest|
       wishlist_book = {}
       
       wishlist_book["title"] = interest.book.title
       wishlist_book["author"] = interest.book.author
       wishlist_book["interest_id"] = interest.id
-      server_response.push(wishlist_book)
+      server_response[:wishlist].push(wishlist_book)
     end
     
     render json: server_response
