@@ -102,6 +102,10 @@ class UsersController < ApplicationController
     user = Credential.find(credential_id).login
     new_book = Book.create(title: title, author: author)
     user.books << new_book 
+    
+    server_response = {}
+    server_response["credential_id"] = true
+    render json: server_response 
   end
   
   def add_to_library
@@ -112,13 +116,17 @@ class UsersController < ApplicationController
     category = params["category"]
     rating = params["rating"]
     
+    server_response = {credential_id: -1}
+    
     credential_id = params["credential_id"]
     
     user = Credential.find(credential_id).login
     new_book = Book.create(title: title, isbn: isbn, author: author)
     user.interests.create(book_id: new_book.id, category: category, rating: rating, read: true) if new_book.valid?
     existing_book = Book.find_by_isbn(isbn)
-    user.interests.create(book_id: existing_book.id, category: category, rating: rating ,read: true)
+    server_response["credential_id"] = true if user.interests.create(book_id: existing_book.id, category: category, rating: rating ,read: true)
+    
+    render json: server_response 
   end
 
   def foo
