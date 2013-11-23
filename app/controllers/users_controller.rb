@@ -60,9 +60,10 @@ class UsersController < ApplicationController
     credential_id = params[:credential_id]
     library_user = Credential.find(credential_id).login
     user_interests = library_user.interests.where(read: true)
-    library_book = {}
+    
     server_response = {library: []}    
     user_interests.each do |interest|
+      library_book = {}
       library_book["title"] = interest.book.title
       library_book["author"] = interest.book.author
       library_book["rating"] = interest.rating
@@ -78,9 +79,11 @@ class UsersController < ApplicationController
     credential_id = params[:credential_id]
     wishlist_user = Credential.find(credential_id).login
     user_interests = wishlist_user.interests.where(read: false)
-    wishlist_book = {}
+    
     server_response = {wishlist: []}    
     user_interests.each do |interest|
+      wishlist_book = {}
+      
       wishlist_book["title"] = interest.book.title
       wishlist_book["author"] = interest.book.author
       wishlist_book["interest_id"] = interest.id
