@@ -77,7 +77,7 @@ class UsersController < ApplicationController
   def show_wishlist
     credential_id = params[:credential_id]
     wishlist_user = Credential.find(credential_id).login
-    user_interests = library_user.interests.where(read: false)
+    user_interests = wishlist_user.interests.where(read: false)
     wishlist_book = {}
     server_response = {wishlist: []}    
     user_interests.each do |interest|
