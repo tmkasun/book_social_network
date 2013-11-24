@@ -100,7 +100,7 @@ class UsersController < ApplicationController
     credential_id = params["credential_id"]
     
     user = Credential.find(credential_id).login
-    new_book = Book.create(title: title, author: author)
+    new_book = Book.create(title: title, author: author, isbn: false)
     user.books << new_book 
     
     server_response = {}
