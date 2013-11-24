@@ -134,10 +134,9 @@ class UsersController < ApplicationController
 
   def delete_from_wishlist
     book_to_be_deleted_from_wishlist = params[:interest_id]
-    render json: true and return true if Interest.destroy(book_to_be_deleted_from_wishlist)
+    server_response = {"delete" => 1}
+    render json: server_response  and return true if Interest.destroy(book_to_be_deleted_from_wishlist)
     
-    server_response = {"delete" => true}
-    render json: server_response and return false
   end
   
   def signup
