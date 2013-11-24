@@ -7,7 +7,7 @@ ApiServer::Application.routes.draw do
     post 'wishlist' => 'users#show_wishlist'
     post 'wishlist/add' => 'users#add_to_wishlist'
     post 'library/add' => 'users#add_to_library'
-    post 'library/delete' => 'users#delete_from_wishlist'
+    post 'wishlist/delete' => 'users#delete_from_wishlist'
     post 'foo' => 'users#foo'
     post 'signup' => 'users#signup'
     

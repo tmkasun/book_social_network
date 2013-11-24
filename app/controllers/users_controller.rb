@@ -104,7 +104,7 @@ class UsersController < ApplicationController
     user.books << new_book 
     
     server_response = {}
-    server_response["credential_id"] = true
+    server_response["credential_id"] = 1
     render json: server_response 
   end
   
@@ -128,7 +128,7 @@ class UsersController < ApplicationController
       existing_book = Book.find_by_isbn(isbn)
       user.interests.create(book_id: existing_book.id, category: category, rating: rating ,read: true) 
     end
-    server_response["credential_id"] = true
+    server_response["credential_id"] = 1
     render json: server_response 
   end
 
