@@ -10,7 +10,7 @@ ApiServer::Application.routes.draw do
     post 'wishlist/delete' => 'users#delete_from_wishlist'
     post 'foo' => 'users#foo'
     post 'signup' => 'users#signup'
-    
+    get  'friendlist' => 'users#friendlist'    
   end
   
   scope 'school/' do

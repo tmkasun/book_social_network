@@ -166,5 +166,23 @@ class UsersController < ApplicationController
     render json: server_response
 
   end
+  
+  def friendlist
+    
+    server_response = {friendlist: []}
+    all_users = User.select("firstname as name,location as home_town,dob,gender,id")
+    all_users.each do |u|
+      user = {name: u['name'], home_town: u['home_town'], dob: u['dob'], gender: u['gender'], credential_id: u.credential.id}
+      server_response[:friendlist].push user
+    end
+    render json: server_response
+    
+
+
+  end
+
+
+
+
 
 end
