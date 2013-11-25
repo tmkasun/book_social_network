@@ -6,8 +6,7 @@ class BookshopsController < ApplicationController
     begin
       bookshop = Credential.find(credential_id).login
       server_response  = bookshop
-
-booklist    rescue ActiveRecord::RecordNotFound => error
+    rescue ActiveRecord::RecordNotFound => error
       server_response = {credential_id: -1}
     end
     render json: server_response       
