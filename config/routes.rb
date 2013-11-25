@@ -14,6 +14,7 @@ ApiServer::Application.routes.draw do
   end
   
   scope 'school/' do
+    post 'booklist' => 'schools#booklist'
     post 'signup' => 'schools#signup'
     post 'view' => 'schools#view'
     post 'update' => 'schools#update'    

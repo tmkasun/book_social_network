@@ -6,7 +6,8 @@ class BookshopsController < ApplicationController
     begin
       bookshop = Credential.find(credential_id).login
       server_response  = bookshop
-    rescue ActiveRecord::RecordNotFound => error
+
+booklist    rescue ActiveRecord::RecordNotFound => error
       server_response = {credential_id: -1}
     end
     render json: server_response       
@@ -63,5 +64,18 @@ class BookshopsController < ApplicationController
     render json: server_response
 
   end
-
+  
+  def booklist
+    credential_id = params[:credential_id]
+    bookshop = Credential.find(credential_id).login
+    server_response = {booklist: []}
+    #render json: bookshop.select("id,book_id,quantity")
+    bookshop.each do |inventory|
+      book = {title: inventory.book['title'], quantity: inventory['quantity']}
+      server_response[:booklist].push book
+    end
+    render json: server_response
+    
+  end
+  
 end
