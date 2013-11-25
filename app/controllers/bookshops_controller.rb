@@ -66,9 +66,9 @@ class BookshopsController < ApplicationController
   
   def booklist
     credential_id = params[:credential_id]
-    bookshop = Credential.find(credential_id).login
+    bookshop_user = Credential.find(credential_id).login
     server_response = {booklist: []}
-    #render json: bookshop.select("id,book_id,quantity")
+    bookshop =  bookshop_user.inventories.select("id,book_id,quantity")
     bookshop.each do |inventory|
       book = {title: inventory.book['title'], quantity: inventory['quantity']}
       server_response[:booklist].push book
