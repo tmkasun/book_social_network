@@ -77,4 +77,15 @@ class BookshopsController < ApplicationController
     
   end
   
+  def add
+    credential_id = params[:credential_id]
+    title = params[:title]
+    quantity = params[:quantity]
+    bookshop_user = Credential.find(credential_id).login
+    server_response = {result: 1}
+    bookshop_user.inventories.create(book_id: Book.create(title: title, isbn: false).id, quantity: quantity)
+    render json: server_response
+  end
+  
+  
 end
