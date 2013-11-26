@@ -14,4 +14,6 @@ class Book < ActiveRecord::Base
 
   has_many :inventories
   has_many :bookshops , through: :inventories
+  
+  belongs_to :school
 end

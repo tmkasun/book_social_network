@@ -63,4 +63,21 @@ class SchoolsController < ApplicationController
     render json: server_response
 
   end
+  
+  
+  def booklist
+    credential_id = params[:credential_id]
+    school_user = Credential.find(credential_id).login
+    server_response = {booklist: []}
+    books =  school_user.books("book_id,title,author")
+    books.each do |buk|
+      book = {title: buk['title'], author: buk['author']}
+      server_response[:booklist].push book
+    end
+    render json: server_response
+    
+
+
+  end
+
 end
