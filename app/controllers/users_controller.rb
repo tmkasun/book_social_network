@@ -186,7 +186,7 @@ class UsersController < ApplicationController
     
     interest_id = params["interest_id"]
     credential_id = params["credential_id"]
-    server_response = {credential_id: 1}
+    server_response = {result: 1}
     me = Credential.find(credential_id).login
     friends_interest = Interest.find(interest_id)
     me.interests.create(book_id: friends_interest.book.id,read: false, rating: 0)

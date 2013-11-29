@@ -80,4 +80,17 @@ class SchoolsController < ApplicationController
 
   end
 
+  def add
+    credential_id = params[:credential_id]
+    title = params[:title]
+    author = params[:author]
+    school_user = Credential.find(credential_id).login
+    server_response = {result: 1}
+    school_user.books <<  Book.create(title: title, isbn: false, author: author)
+    render json: server_response
+  end
+
+
+
+
 end
