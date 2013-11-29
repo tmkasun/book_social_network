@@ -69,6 +69,7 @@ class UsersController < ApplicationController
       library_book["rating"] = interest.rating
       library_book["category"] = interest.category
       library_book["isbn"] = interest.book.isbn
+      library_book["interest_id"] = interest.id
       server_response[:library].push(library_book)
     end
     
@@ -181,7 +182,16 @@ class UsersController < ApplicationController
 
   end
 
+  def add_to_wishlist
+    
+    interest_id = params["interest_id"]
+    credential_id = params["credential_id"]
 
+    me = Credential.find(credential_id).login
+    friends_interest = Interest.find(interest_id)
+    me.interests.create(book_id: friends_interest.book.id,read: false, rating: 0)
+
+  end
 
 
 
