@@ -194,6 +194,17 @@ class UsersController < ApplicationController
     return false
   end
 
+  def bookshops
+    
+    server_response = {bookshops: []}
+    all_bookshops = Bookshop.select("name, location")
+    all_bookshops.each do |bookshop|
+    b_shop = {name: bookshop['name'], location: bookshop['location']}
+    server_response[:bookshops].push b_shop
+    end
+    render json: server_response
 
+
+  end
 
 end

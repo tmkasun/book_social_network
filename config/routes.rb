@@ -11,7 +11,9 @@ ApiServer::Application.routes.draw do
     post 'foo' => 'users#foo'
     post 'signup' => 'users#signup'
     get  'friendlist' => 'users#friendlist'
+    get  'bookshops' => 'users#bookshops' 
     post 'friendlist/library/addtowishlist' => 'users#add_to_wishlist'    
+    
   end
   
   scope 'school/' do
