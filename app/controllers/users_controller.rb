@@ -197,9 +197,9 @@ class UsersController < ApplicationController
   def bookshops
     
     server_response = {bookshops: []}
-    all_bookshops = Bookshop.select("name, location")
+    all_bookshops = Bookshop.select("id, name, location")
     all_bookshops.each do |bookshop|
-    b_shop = {name: bookshop['name'], location: bookshop['location']}
+    b_shop = {name: bookshop['name'], location: bookshop['location'], bookshop_id: bookshop.id}
     server_response[:bookshops].push b_shop
     end
     render json: server_response
