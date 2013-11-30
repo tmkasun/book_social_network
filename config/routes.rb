@@ -13,7 +13,7 @@ ApiServer::Application.routes.draw do
     get  'friendlist' => 'users#friendlist'
     get  'bookshops' => 'users#bookshops' 
     post 'friendlist/library/addtowishlist' => 'users#add_to_wishlist'    
-    
+    post 'library/search' => 'users#search_library'    
   end
   
   scope 'school/' do

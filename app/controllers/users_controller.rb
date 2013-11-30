@@ -204,6 +204,29 @@ class UsersController < ApplicationController
     end
     render json: server_response
 
+  end
+  
+  def search_library
+
+    query = params[:query]
+    credential_id = params[:credential_id]
+    library_user = Credential.find(credential_id).login
+    user_interests = library_user.interests.where('title like ? and read = true', '%#{query}%')
+
+    server_response = {library: []}
+    user_interests.each do |interest|
+      library_book = {}
+      library_book["title"] = interest.book.title
+      library_book["author"] = interest.book.author
+      library_book["rating"] = interest.rating
+      library_book["category"] = interest.category
+      library_book["isbn"] = interest.book.isbn
+      library_book["interest_id"] = interest.id
+      server_response[:library].push(library_book)
+    end
+
+    render json: server_response
+    
 
   end
 
