@@ -199,7 +199,7 @@ class UsersController < ApplicationController
     server_response = {bookshops: []}
     all_bookshops = Bookshop.select("id, name, location")
     all_bookshops.each do |bookshop|
-    b_shop = {name: bookshop['name'], location: bookshop['location'], bookshop_id: bookshop.id}
+    b_shop = {name: bookshop['name'], location: bookshop['location'], id: bookshop.id}
     server_response[:bookshops].push b_shop
     end
     render json: server_response
@@ -211,7 +211,7 @@ class UsersController < ApplicationController
     query = "%#{params[:query]}%"
     credential_id = params[:credential_id]
     user = Credential.find(credential_id).login
-    users_library_books = user.books.where('title like ?',query)
+    true if Float(params[:query]) rescue false ?  users_library_books = user.books.where('isbn like ?',query) : users_library_books = user.books.where('title like ?',query)
     server_response = {library: []}
     users_library_books.each do |book|
       interest = user.interests.find_by_book_id(book.id)
