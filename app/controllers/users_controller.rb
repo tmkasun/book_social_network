@@ -208,10 +208,10 @@ class UsersController < ApplicationController
   
   def search_library
 
-    query = params[:query]
+    query = "%#{params[:query]}%"
     credential_id = params[:credential_id]
     user = Credential.find(credential_id).login
-    users_library_books = user.books.where('title like ?','%#{query}%')
+    users_library_books = user.books.where('title like ?',query)
     server_response = {library: []}
     users_library_books.each do |book|
       interest = user.interests.find_by_book_id(book.id)
