@@ -210,17 +210,18 @@ class UsersController < ApplicationController
 
     query = params[:query]
     credential_id = params[:credential_id]
-    library_user = Credential.find(credential_id).login
-    user_interests = library_user.interests.where('title like ? and read = true', '%#{query}%')
-
+    user = Credential.find(credential_id).login
+    users_library_books = user.books.where('title like ?','%#{query}%')
     server_response = {library: []}
-    user_interests.each do |interest|
+    users_library_books.each do |book|
+      interest = user.interests.find_by_book_id(book.id)
+      next unless interest['read']
       library_book = {}
-      library_book["title"] = interest.book.title
-      library_book["author"] = interest.book.author
+      library_book["title"] = book.title
+      library_book["author"] = book.author
       library_book["rating"] = interest.rating
       library_book["category"] = interest.category
-      library_book["isbn"] = interest.book.isbn
+      library_book["isbn"] = book.isbn
       library_book["interest_id"] = interest.id
       server_response[:library].push(library_book)
     end
